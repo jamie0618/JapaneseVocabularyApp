@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>日文單字學習</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <nav>
+      <div class="container">
+        <a href="{{ url_for('index') }}" class="brand">日文單字學習</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+    </div>
+
+    <script>
+      // 自動儲存筆記
+      document.addEventListener("DOMContentLoaded", function () {
+        const notesArea = document.getElementById("category-notes");
+        const statusDiv = document.getElementById("notes-status");
+        let saveTimeout;
+
+        if (notesArea) {
+          notesArea.addEventListener("input", function () {
+            // 清除之前的計時器
+            clearTimeout(saveTimeout);
+
+            // 設定新的計時器，延遲500毫秒後儲存
+            saveTimeout = setTimeout(function () {
+              const categoryId = window.location.pathname.split("/")[2];
+
+              // 顯示儲存中狀態
+              statusDiv.textContent = "儲存中...";
+              statusDiv.style.opacity = "1";
+
+              fetch(`/category/${categoryId}/notes`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: `notes=${encodeURIComponent(notesArea.value)}`,
+              })
+                .then((response) => response.json())
+                .then((data) => {
+                  statusDiv.textContent = "已儲存";
+                  // 2秒後隱藏狀態訊息
+                  setTimeout(() => {
+                    statusDiv.style.opacity = "0";
+                  }, 2000);
+                })
+                .catch((error) => {
+                  statusDiv.textContent = "儲存失敗";
+                  statusDiv.style.color = "#dc3545";
+                });
+            }, 500);
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

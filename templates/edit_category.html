@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block content %}
+<div class="header">
+  <h1>編輯分類</h1>
+</div>
+
+<form method="post" class="category-form">
+  <div class="form-group">
+    <label for="name">分類名稱</label>
+    <input
+      type="text"
+      id="name"
+      name="name"
+      value="{{ category.name }}"
+      required
+    />
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn">更新</button>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">取消</a>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,357 @@
+:root {
+    --primary-color: #4a90e2;
+    --danger-color: #e25555;
+    --gray-color: #666;
+    --light-gray: #f5f5f5;
+    --border-color: #ddd;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+nav {
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+}
+
+.brand {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.add-form {
+    display: flex;
+    gap: 1rem;
+}
+
+.categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.category-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.category-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.category-link {
+    display: block;
+    color: var(--primary-color);
+    text-decoration: none;
+    margin-top: 1rem;
+}
+
+.notes-section {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.notes-section h2 {
+    font-size: 1.2rem;
+    color: var(--gray-color);
+    margin-bottom: 1rem;
+}
+
+.notes-container {
+    position: relative;
+}
+
+.notes-area {
+    width: 100%;
+    min-height: 150px;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    line-height: 1.6;
+    resize: vertical;
+    font-family: inherit;
+}
+
+.notes-area:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+}
+
+.notes-status {
+    position: absolute;
+    bottom: -25px;
+    right: 0;
+    font-size: 0.9rem;
+    color: var(--gray-color);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.words {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.word-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.word-content {
+    margin-bottom: 1rem;
+}
+
+.japanese-text {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+ruby {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+rt {
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: var(--gray-color);
+}
+
+/* 調整 ruby 文字的間距 */
+ruby > rt {
+    transform: translateY(-0.15em);
+}
+
+.meaning {
+    text-align: center;
+    color: var(--gray-color);
+    font-size: 1.1rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.word-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+/* 按鈕樣式 */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 70px;
+    height: 36px;
+    padding: 0 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid transparent;
+    background-color: var(--primary-color);
+    color: white;
+    transition: all 0.2s ease;
+    line-height: 1;
+    box-sizing: border-box;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.btn-secondary {
+    background-color: var(--gray-color);
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+}
+
+/* 確保表單內的按鈕與一般按鈕一致 */
+form button.btn {
+    font-family: inherit;
+    margin: 0;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+/* 表單樣式 */
+.word-form,
+.category-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--gray-color);
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+/* 警告訊息 */
+.alert {
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+    background-color: #e3f2fd;
+    color: #1565c0;
+    border: 1px solid #90caf9;
+}
+
+.alert-success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border-color: #a5d6a7;
+}
+
+.alert-danger {
+    background-color: #ffebee;
+    color: #c62828;
+    border-color: #ef9a9a;
+}
+
+/* 內嵌表單和按鈕容器 */
+.inline {
+    display: inline-block;
+}
+
+.word-actions,
+.category-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+/* 確保表單內的按鈕對齊 */
+.inline button.btn {
+    vertical-align: middle;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+    
+    .add-form {
+        flex-direction: column;
+    }
+    
+    .categories {
+        grid-template-columns: 1fr;
+    }
+    
+    .words {
+        grid-template-columns: 1fr;
+    }
+    
+    .category-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .category-actions {
+        justify-content: flex-start;
+    }
+    
+    .word-form,
+    .category-form {
+        padding: 1.5rem;
+    }
+}
+
+/* 動畫效果 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.category-card,
+.word-card {
+    animation: fadeIn 0.3s ease-out;
+}

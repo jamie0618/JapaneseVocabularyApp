@@ -1,0 +1,48 @@
+{% extends "base.html" %} {% block content %}
+<div class="header">
+  <h1>編輯單字</h1>
+</div>
+
+<form method="post" class="word-form">
+  <div class="form-group">
+    <label for="kanji">漢字</label>
+    <input
+      type="text"
+      id="kanji"
+      name="kanji"
+      value="{{ word.kanji }}"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="furigana">假名</label>
+    <input
+      type="text"
+      id="furigana"
+      name="furigana"
+      value="{{ word.furigana }}"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="meaning">中文意思</label>
+    <input
+      type="text"
+      id="meaning"
+      name="meaning"
+      value="{{ word.meaning }}"
+      required
+    />
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn">更新</button>
+    <a
+      href="{{ url_for('view_category', id=word.category_id) }}"
+      class="btn btn-secondary"
+      >取消</a
+    >
+  </div>
+</form>
+{% endblock %}
