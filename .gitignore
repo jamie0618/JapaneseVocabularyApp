@@ -1,8 +1,4 @@
-.chalice/deployments/
-.chalice/venv/
-.chalice/config.json
-transformed.yaml
-*.db
+
 
 # Ignore Python bytecode files
 *.pyc
@@ -35,8 +31,3 @@ python*
 
 # Ignore .coverage file
 .coverage
-
-# Ignore excel file except test_driver_data.xlsx ( use for unittest or upload template) 
-*.xlsx
-!scripts/driver_data_import_template.xlsx
-!chalicelib/source/template/**/*.xlsx

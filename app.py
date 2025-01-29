@@ -14,7 +14,7 @@ db = SQLAlchemy(app)
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    notes = db.Column(db.Text, nullable=True)  # 新增筆記欄位
+    notes = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     words = db.relationship(
         "Word", backref="category", lazy=True, cascade="all, delete-orphan"
@@ -23,15 +23,14 @@ class Category(db.Model):
 
 class Word(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    kanji = db.Column(db.String(50))
-    furigana = db.Column(db.String(50))
+    kanji = db.Column(db.String(50))  # 漢字
+    furigana = db.Column(db.String(50))  # 假名
     meaning = db.Column(db.String(200))
     category_id = db.Column(db.Integer, db.ForeignKey("category.id"), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def get_ruby(self):
         """將漢字和假名配對，返回 (漢字, 假名) 的列表"""
-        import re
 
         # 分割假名
         furigana_parts = self.furigana.split()
@@ -46,13 +45,15 @@ class Word(db.Model):
         return list(zip(kanji_parts, furigana_parts))
 
 
-# 路由
+# 主頁面
 @app.route("/")
 def index():
+    # 取得所有分類
     categories = Category.query.order_by(Category.created_at.desc()).all()
     return render_template("index.html", categories=categories)
 
 
+# 新增類別
 @app.route("/category/add", methods=["POST"])
 def add_category():
     name = request.form.get("name")
@@ -64,6 +65,7 @@ def add_category():
     return redirect(url_for("index"))
 
 
+# 編輯類別
 @app.route("/category/<int:id>/edit", methods=["GET", "POST"])
 def edit_category(id):
     category = Category.query.get_or_404(id)
@@ -75,6 +77,7 @@ def edit_category(id):
     return render_template("edit_category.html", category=category)
 
 
+# 刪除類別
 @app.route("/category/<int:id>/delete", methods=["POST"])
 def delete_category(id):
     category = Category.query.get_or_404(id)
@@ -84,6 +87,7 @@ def delete_category(id):
     return redirect(url_for("index"))
 
 
+# 查看類別內容
 @app.route("/category/<int:id>")
 def view_category(id):
     category = Category.query.get_or_404(id)
@@ -91,6 +95,7 @@ def view_category(id):
     return render_template("category.html", category=category, words=words)
 
 
+# 更新筆記
 @app.route("/category/<int:id>/notes", methods=["POST"])
 def update_notes(id):
     category = Category.query.get_or_404(id)
@@ -99,6 +104,7 @@ def update_notes(id):
     return jsonify({"status": "success"})
 
 
+# 新增/查詢單字
 @app.route("/category/<int:id>/word/add", methods=["GET", "POST"])
 def add_word(id):
     category = Category.query.get_or_404(id)
@@ -116,6 +122,7 @@ def add_word(id):
     return render_template("add_word.html", category=category)
 
 
+# 編輯單字
 @app.route("/word/<int:id>/edit", methods=["GET", "POST"])
 def edit_word(id):
     word = Word.query.get_or_404(id)
@@ -129,6 +136,7 @@ def edit_word(id):
     return render_template("edit_word.html", word=word)
 
 
+# 刪除單字
 @app.route("/word/<int:id>/delete", methods=["POST"])
 def delete_word(id):
     word = Word.query.get_or_404(id)
